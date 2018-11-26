@@ -4,16 +4,22 @@ import Data.Char
 
 expected x = error $ x ++ " expected"
 
-term :: Char -> String
+data Expression =
+  Num Int
+  | Add Expression Expression
+  | Sub Expression Expression
+  deriving (Show)
+
+term :: Char -> Expression
 term x
-  | isDigit x = [x]
+  | isDigit x = Num (digitToInt x)
   | otherwise = expected "Digit"
 
-addOperation :: Char -> String
+-- addOperation :: Char -> Expression
 addOperation x
-  | x == '+' = "+"
-  | x == '-' = "-"
+  | x == '+' = Add
+  | x == '-' = Sub
   | otherwise = expected "AddOp"
 
 expression [x] = term x
-expression (x:y:zs) = term x ++ addOperation y ++ expression zs
+expression (x:y:zs) = addOperation y (expression [x]) (expression zs)
