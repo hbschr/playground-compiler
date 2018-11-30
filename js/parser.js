@@ -1,4 +1,4 @@
-import TokenStream, { TOKEN_NUM, TOKEN_OP } from './token_stream'
+import TokenStream, { TOKEN_NUM, TOKEN_OP, TOKEN_PUNC } from './token_stream'
 
 
 /**
@@ -53,8 +53,14 @@ export default class Parser {
         if (token) {
             const {type, value} = token
             if (type === TOKEN_NUM) return new Node(this.tokens.next())
+            if (type === TOKEN_PUNC && value === '(') {
+                this._skip(TOKEN_PUNC, '(')
+                const expr = this.parseExpression()
+                this._skip(TOKEN_PUNC, ')')
+                return expr
+            }
         }
-        this._unexpected('Number')
+        this._unexpected('Number or (')
     }
 
     /**

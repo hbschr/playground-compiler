@@ -23,7 +23,7 @@ steps:
     -   [x] literals
     -   [x] left-to-right vs right-to-left
     -   [x] operator precedence
-    -   [ ] paren precedence
+    -   [x] paren precedence
     -   [ ] unary operator
 
 

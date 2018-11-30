@@ -23,3 +23,7 @@ it('divides', () => {
 it('adheres operator precedence', () => {
     expect(calculate('1+2*3')).toBe(7)
 })
+
+it('adheres paren precedence', () => {
+    expect(calculate('(1+2)*3')).toBe(9)
+})

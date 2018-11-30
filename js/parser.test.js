@@ -17,6 +17,12 @@ it('parses numeric literals', () => {
     checkNodeToken(node, TOKEN_NUM, 42)
 })
 
+it('ignores parens', () => {
+    const parser = new Parser('(42)')
+    const node = parser.parse()
+    checkNodeToken(node, TOKEN_NUM, 42)
+})
+
 it('doest not parse single operators', () => {
     forEach.call(testOperators, op => {
         const parser = new Parser(op)
@@ -59,6 +65,11 @@ it('adheres left-to-right evaluation', () => {
 it('adheres operator precedence', () => {
     const parser = new Parser('1+2*3')
     expect(parser.parse().toString()).toBe('(+ 1 (* 2 3))')
+})
+
+it('adheres paren precedence', () => {
+    const parser = new Parser('1+(2+3)')
+    expect(parser.parse().toString()).toBe('(+ 1 (+ 2 3))')
 })
 
 it('throws error at eof in term', () => {
