@@ -1,5 +1,5 @@
 import Parser from './parser'
-import { TOKEN_NUM } from './token_stream'
+import { TOKEN_NUM, TOKEN_OP } from './token_stream'
 
 const forEach = Array.prototype.forEach
 
@@ -29,4 +29,34 @@ it('doest not parse single punctuations', () => {
         const parser = new Parser(punc)
         expect(parser.parse.bind(parser)).toThrow()
     })
+})
+
+it('parses addition w/ two terms', () => {
+    const parser = new Parser('1+2')
+    expect(parser.parse().toString()).toBe('(+ 1 2)')
+})
+
+it('parses substraction w/ two terms', () => {
+    const parser = new Parser('1-2')
+    expect(parser.parse().toString()).toBe('(- 1 2)')
+})
+
+it('parses multiplication w/ two terms', () => {
+    const parser = new Parser('1*2')
+    expect(parser.parse().toString()).toBe('(* 1 2)')
+})
+
+it('parses division w/ two terms', () => {
+    const parser = new Parser('1/2')
+    expect(parser.parse().toString()).toBe('(/ 1 2)')
+})
+
+it('adheres right-to-left evaluation', () => {
+    const parser = new Parser('1+2+3')
+    expect(parser.parse().toString()).toBe('(+ 1 (+ 2 3))')
+})
+
+it('throws error at eof in term', () => {
+    const parser = new Parser('1+')
+    expect(parser.parse.bind(parser)).toThrow(/null/)
 })

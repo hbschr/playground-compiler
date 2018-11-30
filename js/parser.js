@@ -1,4 +1,4 @@
-import TokenStream, { TOKEN_NUM } from './token_stream'
+import TokenStream, { TOKEN_NUM, TOKEN_OP } from './token_stream'
 
 
 class Node {
@@ -13,6 +13,8 @@ class Node {
         switch (this.type) {
             case TOKEN_NUM:
                 return `${this.value}`
+            case TOKEN_OP:
+                return `(${this.value} ${this.left.toString()} ${this.right.toString()})`
             default:
                 throw new Error(`No valid node found.`)
         }
@@ -33,7 +35,7 @@ export default class Parser {
     }
 
     parseExpression () {
-        return this.parseTerm()
+        return this.maybeBinary(this.parseTerm())
     }
 
     parseTerm () {
@@ -45,6 +47,19 @@ export default class Parser {
         this._unexpected('Number')
     }
 
+    /**
+     * return `left` or a new binary node
+     */
+    maybeBinary (left) {
+        const token = this.tokens.peek()
+        if (token && token.type === TOKEN_OP) {
+            // - create node for this binary operator
+            // - use given `left`
+            // - digest right side
+            return new Node(this.tokens.next(), left, this.parseExpression())
+        }
+        return left
+    }
 
     _skip (type, value) {
         const tok = this.tokens.peek()
