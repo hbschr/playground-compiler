@@ -3,3 +3,7 @@
 
 # misc
 .DS_Store
+
+# js
+/node_modules
+/coverage
