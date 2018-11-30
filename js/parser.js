@@ -53,6 +53,9 @@ export default class Parser {
         if (token) {
             const {type, value} = token
             if (type === TOKEN_NUM) return new Node(this.tokens.next())
+            if (type === TOKEN_OP && value === '-') {
+                return new Node(this.tokens.next(), new Node({type: TOKEN_NUM, value: 0}), this.parseTerm())
+            }
             if (type === TOKEN_PUNC && value === '(') {
                 this._skip(TOKEN_PUNC, '(')
                 const expr = this.parseExpression()

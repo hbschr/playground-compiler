@@ -23,6 +23,24 @@ it('ignores parens', () => {
     checkNodeToken(node, TOKEN_NUM, 42)
 })
 
+it('parses unary operator', () => {
+    const parser = new Parser('-42')
+    const node = parser.parse()
+    checkNodeToken(node, TOKEN_OP, '-')
+    checkNodeToken(node.left, TOKEN_NUM, 0)
+    checkNodeToken(node.right, TOKEN_NUM, 42)
+})
+
+it('parses unary operator twice', () => {
+    const parser = new Parser('- -42')
+    const node = parser.parse()
+    checkNodeToken(node, TOKEN_OP, '-')
+    checkNodeToken(node.left, TOKEN_NUM, 0)
+    checkNodeToken(node.right, TOKEN_OP, '-')
+    checkNodeToken(node.right.left, TOKEN_NUM, 0)
+    checkNodeToken(node.right.right, TOKEN_NUM, 42)
+})
+
 it('doest not parse single operators', () => {
     forEach.call(testOperators, op => {
         const parser = new Parser(op)

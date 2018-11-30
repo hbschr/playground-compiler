@@ -19,12 +19,12 @@ and interpreter for arithmetic expressions following tutorial
 
 steps:
 -   [x] input stream, token stream
--   [ ] parser, interpreter
+-   [x] parser, interpreter
     -   [x] literals
     -   [x] left-to-right vs right-to-left
     -   [x] operator precedence
     -   [x] paren precedence
-    -   [ ] unary operator
+    -   [x] unary operator
 
 
 ## haskell

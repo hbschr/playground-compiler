@@ -27,3 +27,7 @@ it('adheres operator precedence', () => {
 it('adheres paren precedence', () => {
     expect(calculate('(1+2)*3')).toBe(9)
 })
+
+it('applies unary operator to parens', () => {
+    expect(calculate('-(1+2)')).toBe(-3)
+})
