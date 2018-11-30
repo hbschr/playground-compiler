@@ -21,7 +21,7 @@ steps:
 -   [x] input stream, token stream
 -   [ ] parser, interpreter
     -   [x] literals
-    -   [ ] left-to-right vs right-to-left
+    -   [x] left-to-right vs right-to-left
     -   [ ] operator precedence
     -   [ ] paren precedence
     -   [ ] unary operator

@@ -55,8 +55,10 @@ export default class Parser {
         if (token && token.type === TOKEN_OP) {
             // - create node for this binary operator
             // - use given `left`
-            // - digest right side
-            return new Node(this.tokens.next(), left, this.parseExpression())
+            // - don't digest right side
+            const operatorNode = new Node(this.tokens.next(), left, this.parseTerm())
+            // - offer as left node for possible following operators
+            return this.maybeBinary(operatorNode)
         }
         return left
     }

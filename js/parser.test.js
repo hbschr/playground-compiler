@@ -51,9 +51,9 @@ it('parses division w/ two terms', () => {
     expect(parser.parse().toString()).toBe('(/ 1 2)')
 })
 
-it('adheres right-to-left evaluation', () => {
+it('adheres left-to-right evaluation', () => {
     const parser = new Parser('1+2+3')
-    expect(parser.parse().toString()).toBe('(+ 1 (+ 2 3))')
+    expect(parser.parse().toString()).toBe('(+ (+ 1 2) 3)')
 })
 
 it('throws error at eof in term', () => {
