@@ -1,6 +1,16 @@
 import TokenStream, { TOKEN_NUM, TOKEN_OP } from './token_stream'
 
 
+/**
+ * operator precedence, higher numbers come first.
+ */
+const PRECEDENCE = {
+    // binary addition
+    '+': 1, '-': 1,
+    // binary multiplication
+    '*': 2, '/': 2, '%': 2,
+}
+
 class Node {
     constructor (token, left=null, right=null) {
         this.type = token.type
@@ -34,8 +44,8 @@ export default class Parser {
         return this.parseExpression()
     }
 
-    parseExpression () {
-        return this.maybeBinary(this.parseTerm())
+    parseExpression (operatorPrecedence=0) {
+        return this.maybeBinary(this.parseTerm(), operatorPrecedence)
     }
 
     parseTerm () {
@@ -48,17 +58,20 @@ export default class Parser {
     }
 
     /**
-     * return `left` or a new binary node
+     * return `left` or a new binary node when operator precedence is high enough
      */
-    maybeBinary (left) {
+    maybeBinary (left, contextPrecedence) {
         const token = this.tokens.peek()
         if (token && token.type === TOKEN_OP) {
-            // - create node for this binary operator
-            // - use given `left`
-            // - don't digest right side
-            const operatorNode = new Node(this.tokens.next(), left, this.parseTerm())
-            // - offer as left node for possible following operators
-            return this.maybeBinary(operatorNode)
+            const tokenPrecedence = PRECEDENCE[token.value]
+            if (tokenPrecedence > contextPrecedence) {
+                // - create node for this binary operator
+                // - use given `left`
+                // - digest right side while operator precedence allows
+                const operatorNode = new Node(this.tokens.next(), left, this.parseExpression(tokenPrecedence))
+                // - offer as left node for possible following operators w/ original precedence
+                return this.maybeBinary(operatorNode, contextPrecedence)
+            }
         }
         return left
     }

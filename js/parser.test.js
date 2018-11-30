@@ -56,6 +56,11 @@ it('adheres left-to-right evaluation', () => {
     expect(parser.parse().toString()).toBe('(+ (+ 1 2) 3)')
 })
 
+it('adheres operator precedence', () => {
+    const parser = new Parser('1+2*3')
+    expect(parser.parse().toString()).toBe('(+ 1 (* 2 3))')
+})
+
 it('throws error at eof in term', () => {
     const parser = new Parser('1+')
     expect(parser.parse.bind(parser)).toThrow(/null/)

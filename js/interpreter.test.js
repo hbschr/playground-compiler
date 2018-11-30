@@ -19,3 +19,7 @@ it('multiplies', () => {
 it('divides', () => {
     expect(calculate('1/2')).toBe(0.5)
 })
+
+it('adheres operator precedence', () => {
+    expect(calculate('1+2*3')).toBe(7)
+})

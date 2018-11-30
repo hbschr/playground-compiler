@@ -22,7 +22,7 @@ steps:
 -   [ ] parser, interpreter
     -   [x] literals
     -   [x] left-to-right vs right-to-left
-    -   [ ] operator precedence
+    -   [x] operator precedence
     -   [ ] paren precedence
     -   [ ] unary operator
 
