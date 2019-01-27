@@ -25,7 +25,7 @@ it('peeks next char (nullipotent), terminates with empty string', () => {
 
 it('eofs only once at the end', () => {
     const stream = new InputStream(testInput)
-    forEach.call(testInput, char => {
+    forEach.call(testInput, () => {
         expect(stream.eof()).toBe(false)
         stream.next()
     })

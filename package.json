@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "learning lexer, parser, compiler...",
   "scripts": {
+    "lint": "eslint js",
     "test": "jest"
   },
   "keywords": [],
@@ -15,6 +16,7 @@
   },
   "dependencies": {
     "babel-preset-env": "^1.7.0",
+    "eslint": "^5.12.1",
     "jest": "^23.6.0",
     "parcel-bundler": "^1.10.3"
   }

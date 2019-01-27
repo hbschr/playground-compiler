@@ -21,12 +21,12 @@ class Node {
 
     toString () {
         switch (this.type) {
-            case TOKEN_NUM:
-                return `${this.value}`
-            case TOKEN_OP:
-                return `(${this.value} ${this.left.toString()} ${this.right.toString()})`
-            default:
-                throw new Error(`No valid node found.`)
+        case TOKEN_NUM:
+            return `${this.value}`
+        case TOKEN_OP:
+            return `(${this.value} ${this.left.toString()} ${this.right.toString()})`
+        default:
+            throw new Error('No valid node found.')
         }
     }
 }

@@ -1,4 +1,3 @@
-import InputStream from './input_stream'
 import TokenStream, { TOKEN_NUM, TOKEN_PUNC, TOKEN_OP } from './token_stream'
 
 const fnTrue = () => true
@@ -124,7 +123,7 @@ it('peeks next token (nullipotent) in arithmetic expression, terminates w/ `null
 
 it('eofs only once after last token', () => {
     const stream = createStream(testSingleDigitArithmeticExpression)
-    forEach.call(testSingleDigitArithmeticExpression, char => {
+    forEach.call(testSingleDigitArithmeticExpression, () => {
         expect(stream.eof()).toBe(false)
         stream.next()
     })

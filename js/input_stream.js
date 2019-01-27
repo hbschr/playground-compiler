@@ -19,7 +19,7 @@ export default class InputStream {
         } else {
             this.col++
         }
-        return ch;
+        return ch
     }
 
     eof () {
@@ -27,6 +27,6 @@ export default class InputStream {
     }
 
     croak (message) {
-        throw new Error(`(${this.line}:${this.col}) ${message}`);
+        throw new Error(`(${this.line}:${this.col}) ${message}`)
     }
 }
