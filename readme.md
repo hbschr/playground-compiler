@@ -1,4 +1,4 @@
-## javascript
+## "build your own x" compiler
 
 stack:
 -   web packer `parcel`, includes babel
@@ -25,13 +25,3 @@ steps:
     -   [x] operator precedence
     -   [x] paren precedence
     -   [x] unary operator
-
-
-## haskell
-
-following [tutorial](https://alephnullplex.github.io/cradle/)
-
-```ghci
-:l Main
-expression "2+4"
-```
