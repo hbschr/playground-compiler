@@ -9,6 +9,7 @@ quick start:
 npm install
 npm test
 npm test -- --coverage
+npm test -- --notify
 npm test -- --watch
 ```
 
